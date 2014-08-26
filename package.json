@@ -29,6 +29,8 @@
     "gulp-rename": "~1.2.0",
     "gulp-notify": "~1.5.0",
     "gulp": "~3.8.7",
-    "gulp-zip": "~2.0.1"
+    "gulp-zip": "~2.0.1",
+    "gulp-htmlmin": "~0.2.0",
+    "gulp-html-replace": "~1.1.0"
   }
 }
