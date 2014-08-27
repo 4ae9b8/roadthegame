@@ -16,7 +16,7 @@ var gulp = require('gulp'),
 
 // optionss and names and stuff
 var options = {
-  js_files : [ 'assets/js/car.js', 'assets/js/player.js', 'assets/js/points.js', 'assets/js/draw.js', 'assets/js/init.js' ],
+  js_files : [ 'assets/js/audio.js', 'assets/js/car.js', 'assets/js/player.js', 'assets/js/points.js', 'assets/js/draw.js', 'assets/js/init.js' ],
   jsmin : 'roadthegame.js',
   css : [ 'assets/css/style.css'],
   html : 'index.html',
