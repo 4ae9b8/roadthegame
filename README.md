@@ -8,7 +8,7 @@ Why did the chicken cross the road?
 
 * Create the game [Mads|Tim]
 * ~~Gulp to create endresult [Tim]~~
-* Make sounds [Tim]
+* ~~Make sounds [Tim]~~
 * Achievements [Mads|Tim]
 * Rewrite to use rAF [Mads|Tim]
 
@@ -42,16 +42,21 @@ Why did the chicken cross the road?
 * Use requestAnimationFrame so that the game pauses if the window is not active
 * Spawn more power ups the faster the cars get
 * Make the game scalable
+* optimize for mobile -> touch control and bigger board
+* Reset power-up time if you pick it up again (e.g. invincible)
+* The player should have "human" colors (like on the classic "road: the game: bloodpath") and the color should be random after every death
+* Reset the difficulty after you die (everything to default -> # of cars, speed, power-ups)
+* Use localStorage to save game stats (like "best"-score)
 
 
 ## Bugs
 
-* Doesn't work in SF on ubuntu
+* Doesn't work in SF 26 on Ubuntu
 * Minions don't die after being run over
 * Cars are overlapping
 * ~~Power up *bomb* destroys all other power ups (Even the the ones to come)~~
 * ~~If you have x minions and move from one lane to the other you just get 1 score instead of 1 + x~~
-* Minions overlap (after x + 1 minion power-ups you don't see the other minions anymore) -> Maybe only when you have the invincible power up
+* Minions overlap (after x + 1 minion power-ups you don't see the other minions anymore) -> Maybe only when you have the invincible power up -> nope, it's random
 
 
 ## Created by
