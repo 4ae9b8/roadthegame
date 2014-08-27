@@ -32,8 +32,6 @@ window.audio = {
 
         var currentTime = audio.audioCtx.currentTime;
 
-        console.log("overlap " + overlap);
-
         if (overlap) {
             oscillator.start(currentTime);
             oscillator.stop(currentTime + delay);
@@ -43,7 +41,6 @@ window.audio = {
             oscillator.start(currentTime + delay);
             oscillator.stop(currentTime + delay * 2);
         }
-
             
         return audio;
     },
@@ -59,7 +56,6 @@ window.audio = {
     
     // Collect a default power-up
     collectPowerUp : function() {
-        console.log('collect powerup');
         audio.createSound(500, .25, false).createSound(600, .5, false).createSound(700, .75, false);
     },
     
