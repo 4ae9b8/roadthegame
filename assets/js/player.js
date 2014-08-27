@@ -49,30 +49,40 @@ window.player = {
         }
     },
     collectPowerUp: function(){
-    	for(var i in window.points.powerUps){
+    	for (var i in window.points.powerUps) {
             var pU = window.points.powerUps[i];
             
-            if(
+            if (
                 (player.y >= pU.y || player.y + 10 >= pU.y) &&
                 (player.y <= pU.y + 5 || player.y + 10 <= pU.y + 5) &&
                 (player.x >= pU.x || player.x + 10 >= pU.x) &&
                 (player.x <= pU.x + 20 || player.x + 10 <= pU.x + 5)
-            ){
-                if(pU.power == "minion"){
+            ) {
+                if (pU.power == "minion"){
                     player.currentPowerUps.push({
                         type: "minion",
                         position: ~~(Math.random() * 360)
                     });
-                }else if(pU.power == "bomb"){
+                    
+                    audio.collectPowerUp();
+                    
+                } else if(pU.power == "bomb") {
                     player.currentPowerUps.push({
                         type: "bomb",
                         x: player.x,
                         y: player.y,
                         alpha: .5
                     });
-                }else{
+                    
+                    audio.collectBomb();
+                    
+                } else {
                     player.currentPowerUps.push(pU.power);
+                    
+                    // Play a sound if a power up was collected
+                    audio.collectPowerUp();
                 }
+                
                 var powerId = player.currentPowerUps.length - 1; // Get the current id of the power up
                 points.killPowerUp(i); 
                 
@@ -102,6 +112,9 @@ window.player = {
             if(points.points > points.highScore){
                 points.highScore = points.points;
             }
+            
+            audio.die();
+            
             points.points = 0;
             points.scoreSide = "right";
             player.x = 10;
