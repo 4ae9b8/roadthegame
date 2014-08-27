@@ -20,7 +20,11 @@ window.audio = {
     
     
     
-    createSound : function(frequency, delay) {
+    createSound : function(frequency, delay, overlap) {
+        
+        // Overlap multiple sounds
+        overlap = overlap || true;
+        
         var oscillator = audio.audioCtx.createOscillator();
         oscillator.frequency.value = frequency;
         
@@ -28,8 +32,18 @@ window.audio = {
 
         var currentTime = audio.audioCtx.currentTime;
 
-        oscillator.start(currentTime);
-        oscillator.stop(currentTime + delay);
+        console.log("overlap " + overlap);
+
+        if (overlap) {
+            oscillator.start(currentTime);
+            oscillator.stop(currentTime + delay);
+
+        } else {
+            console.log('asdf');
+            oscillator.start(currentTime + delay);
+            oscillator.stop(currentTime + delay * 2);
+        }
+
             
         return audio;
     },
@@ -43,10 +57,10 @@ window.audio = {
         audio.createSound(200, .25).createSound(300, .25);
     },
     
-
     // Collect a default power-up
     collectPowerUp : function() {
-        audio.createSound(500, .25).createSound(600, .5).createSound(700, .75);
+        console.log('collect powerup');
+        audio.createSound(500, .25, false).createSound(600, .5, false).createSound(700, .75, false);
     },
     
     // Collect a bomb
