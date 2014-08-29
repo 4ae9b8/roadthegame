@@ -44,7 +44,7 @@ window.points = {
             for(var j in window.points.powerUps){
                 var pU = window.points.powerUps[j];
                 
-                if(
+                if( // Check if something hits the power up (Either the player or a car)
                     (pU.y >= car.y || pU.y + 5 >= car.y || pU.y - 5 >= car.y) &&
                     (pU.y <= car.y + car.length || pU.y + 5 <= car.y + car.length || pU.y- 5 <= car.y + car.length) &&
                     (pU.x >= car.x || pU.x + 5 >= car.x || pU.x - 5 >= car.x) &&
@@ -56,6 +56,9 @@ window.points = {
         }
     },
     killPowerUp: function(id){
-        points.powerUps.splice(id, 1); // Remove the taken power up
+        points.powerUps.splice(id, 1); // Remove the untaken power up
+    },
+    killAllPowerUps: function(){
+        points.powerUps = [];
     }
 }

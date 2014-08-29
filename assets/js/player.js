@@ -1,5 +1,6 @@
+var colours = ["#f1edf2", "#ebceae", "#f3ccb3", "#bf9084", "#3f2d28"];
 window.player = {
-    colour: "#ac0ff0",
+    colour: colours[~~(Math.random() * colours.length)],
     x: 10, y: ~~(Math.random() * (490 - 10) + 10),
     left: false, right: false,
     up: false, down: false,
@@ -35,16 +36,26 @@ window.player = {
 		}
     },
     hit: function(){
-        for(var i in window.car.cars){
-            var car = window.car.cars[i];
+        // We have some cars on the screen
+        if (window.car.hasCars()) {
             
-            if(
-                (player.y >= car.y || player.y + 5 >= car.y || player.y - 5 >= car.y) &&
-                (player.y <= car.y + car.length || player.y + 5 <= car.y + car.length || player.y- 5 <= car.y + car.length) &&
-                (player.x >= car.x || player.x + 5 >= car.x || player.x - 5 >= car.x) &&
-                (player.x <= car.x + 20 || player.x + 5 <= car.x + 20 || player.x - 5 <= car.x + 20)
-            ){
-                player.die();
+            // Iterate over all cars
+            for (var i in window.car.cars){
+                var car = window.car.cars[i];
+                
+                // The car exists
+                if (typeof car !== 'undefined') {
+                
+                    // The player was hit by a car
+                    if (
+                        (player.y >= car.y || player.y + 5 >= car.y || player.y - 5 >= car.y) &&
+                        (player.y <= car.y + car.length || player.y + 5 <= car.y + car.length || player.y- 5 <= car.y + car.length) &&
+                        (player.x >= car.x || player.x + 5 >= car.x || player.x - 5 >= car.x) &&
+                        (player.x <= car.x + 20 || player.x + 5 <= car.x + 20 || player.x - 5 <= car.x + 20)
+                    ) {
+                        player.die();
+                    }
+                }
             }
         }
     },
@@ -108,43 +119,63 @@ window.player = {
         }
     },
     die: function(){ // Reset the player
-        if(!player.invincible){
+        if(!player.invincible){ // If the player is invincible
             if(points.points > points.highScore){
                 points.highScore = points.points;
+                localStorage["highscore"] = points.highScore;
             }
             
             audio.die();
+            
+            player.colour = colours[~~(Math.random() * colours.length)];
             
             points.points = 0;
             points.scoreSide = "right";
             player.x = 10;
             player.y = ~~(Math.random() * (490 - 10) + 10); // Get a random y position
             player.deaths++;
+            localStorage["deaths"] = player.deaths;
             
             // Clear all timers
             for(var i in player.timers){
                 clearTimeout(player.timers[i]);
             }
             
+            // Kill all cars
+            car.killAll();
+
+            // Kill all power ups
+            points.killAllPowerUps();
+            
             player.speed = 50; // Reset speed
+            
+            // Reset the speed of the cars
+            car.speed.fast = 130;
+            car.speed.slow = 80;
             
             player.currentPowerUps = []; // Clear all powers
         }
     },
     keyManagement: function(){
         document.addEventListener("keydown", function(e){
-			kc = e.keyCode
+			kc = e.keyCode;
 			if(kc == 65 || kc == 37){ player.left 	= true } // a || left arrow
 			if(kc == 68 || kc == 39){ player.right 	= true } // d || right arrow
 			if(kc == 87 || kc == 38){ player.up 	= true } // w || up arrow
 			if(kc == 83 || kc == 40){ player.down 	= true } // s || down arrow
+			if(kc == 65 || kc == 37 || kc == 68 || kc == 39 || kc == 87 || kc == 38 || kc == 83 || kc == 40){
+			    e.preventDefault();
+			}
 		})
 		document.addEventListener("keyup", function(e){
-			var kc = e.keyCode
+			var kc = e.keyCode;
 			if(kc == 65 || kc == 37){ player.left 	= false } // a || left arrow
 			if(kc == 68 || kc == 39){ player.right 	= false } // d || right arrow
 			if(kc == 87 || kc == 38){ player.up 	= false } // w || up arrow
 			if(kc == 83 || kc == 40){ player.down 	= false } // s || down arrow
+			if(kc == 65 || kc == 37 || kc == 68 || kc == 39 || kc == 87 || kc == 38 || kc == 83 || kc == 40){
+			    e.preventDefault();
+			}
 		})
     }
 }

@@ -131,16 +131,19 @@ window.draw = {
         }
     },
     info: function(){
-        ctx.fillStyle = "#fff";
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		ctx.fillText("Score: " + points.points, 5, 20 - 15);
-		ctx.fillText("Best: " + points.highScore, 5, 35 - 15);
-		ctx.fillText("Deaths: " + player.deaths, 5, 50 - 15);
-		ctx.fillText("Car speed: {", 5, 65 - 15);
+/*		ctx.fillText("Car speed: {", 5, 65 - 15);
 		ctx.fillText("Fast: " + car.speed.fast, 15, 80 - 15);
 		ctx.fillText("Slow: " + car.speed.slow, 15, 95 - 15);
-		ctx.fillText("}", 5, 110 - 15);
+		ctx.fillText("}", 5, 110 - 15);*/
+		
+        // Update the score inside the UI
+        UserInterface.updateScore(points.points);
+        
+        // Update the best inside the UI
+        UserInterface.updateBest(points.highScore);
+        
+        // Update the deaths inside the UI
+        UserInterface.updateDeaths(player.deaths);
     },
     minions: function(power, dt){
         ctx.save();
@@ -182,6 +185,7 @@ window.draw = {
             ){
                 window.car.kill(i);
                 points.scoreUp(1);
+                achievements.unlock("useBomb");
             }
         }
     },
@@ -201,5 +205,22 @@ window.draw = {
 			draw.trails.reverse().pop()
 			draw.trails.reverse()
 		}
+    },
+    achievement: function(achievement){
+    	ctx.fillStyle = "#fff";
+		ctx.textAlign = "right";
+		ctx.textBaseline = "top";
+    	switch(achievement){
+    		case "die":
+    			ctx.fillText("I'm dead...", c.width, c.height - 15);
+    			break;
+    		case "runOver":
+    			ctx.fillText("Ouch, that hurt", c.width, c.height - 15);
+    			break;
+    		case "useBomb":
+    			ctx.fillText("Bamb! Yo' dead!", c.width, c.height - 15);
+    			break;
+    	}
+    	console.log("Unlocked:", achievement);
     }
 }

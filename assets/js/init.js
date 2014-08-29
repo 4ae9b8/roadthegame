@@ -19,7 +19,7 @@ var c = document.getElementById("board"),
         draw.player(dt); // Draw player
         draw.cars(dt); // Draw cars
         draw.powerUps(dt); // Draw power up
-        draw.info(); // Draw info about stuff
+        draw.info(); // Draw some information
         
         //requestAnimationFrame(tick); // Make the game tick
     };
@@ -38,3 +38,7 @@ setInterval(function(){
 }, 60000);
 
 player.keyManagement() // Manage key presses
+
+// Fetch data from localstorage
+points.highScore = localStorage["highscore"] || 0;
+player.deaths = localStorage["deaths"] || 0;

@@ -41,11 +41,23 @@ window.car = {
             
         car.cars.push(_this) // Push _this to the cars array
     },
-    kill: function(id){
+    // Kill a single car
+    kill: function(id) {
         car.cars.splice(id, 1); // DIE MOFO! D:<
         
         if(~~(Math.random() * 6)){ // Chance 5:1 to spawn a new car
 	        new window.car.car();
 	    }
+    },
+    
+    // Kill all cars at once
+    killAll : function() {
+        // Reset the array with an empty array
+        car.cars = [];
+    },
+    
+    // Returns true if we have some cars, false otherwise
+    hasCars : function() {
+        return car.cars.length > 0;
     }
 }

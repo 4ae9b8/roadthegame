@@ -4,6 +4,9 @@ window.audio = {
     // Because of https://code.google.com/p/chromium/issues/detail?id=308784
     audioCtx : null,
     
+    // Is audio enabled?
+    enabled : true,
+    
     
     
     
@@ -19,27 +22,31 @@ window.audio = {
     
     
     
-    
+    // Create a sound using the frequensy, delay and overlap
     createSound : function(frequency, delay, overlap) {
         
-        // Overlap multiple sounds
-        overlap = overlap || true;
+        // Audio is enabled
+        if (audio.enabled) {
         
-        var oscillator = audio.audioCtx.createOscillator();
-        oscillator.frequency.value = frequency;
-        
-        oscillator.connect(audio.audioCtx.destination);
-
-        var currentTime = audio.audioCtx.currentTime;
-
-        if (overlap) {
-            oscillator.start(currentTime);
-            oscillator.stop(currentTime + delay);
-
-        } else {
-            console.log('asdf');
-            oscillator.start(currentTime + delay);
-            oscillator.stop(currentTime + delay * 2);
+            // Overlap multiple sounds
+            overlap = overlap || true;
+            
+            var oscillator = audio.audioCtx.createOscillator();
+            oscillator.frequency.value = frequency;
+            
+            oscillator.connect(audio.audioCtx.destination);
+    
+            var currentTime = audio.audioCtx.currentTime;
+    
+            if (overlap) {
+                oscillator.start(currentTime);
+                oscillator.stop(currentTime + delay);
+    
+            } else {
+                oscillator.start(currentTime + delay);
+                oscillator.stop(currentTime + delay * 2);
+            }
+            
         }
             
         return audio;
@@ -62,6 +69,11 @@ window.audio = {
     // Collect a bomb
     collectBomb : function() {
         audio.createSound(100, .1).createSound(150, .2).createSound(300, .3);
+    },
+    
+    // Enable / disable audio playback
+    setEnabled : function(state) {
+        audio.enabled = state;
     }
 
     

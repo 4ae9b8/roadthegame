@@ -3,28 +3,98 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Road: The Game</title>
+        <title>Road The Game</title>
 
         <!-- build:css -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
         <!-- endbuild -->
     </head>
 
     <body>
-        <div class="center">
+    
+        <!-- Header -->
+        <header>
         
-          <h1>Road: The Game</h1>
+            <div class="gw wrapper">
+                <h1>Road The Game</h1>
+            </div>
+            
+        </header>
+        <!-- /Header -->
+    
+    
+        <!-- Main part -->
+        <div class="gw wrapper">
         
-          <canvas id="board" class="game">You suck</canvas>
+            <!-- UI -->
+            <div class="g one-whole">
+            
+                <div class="g one-third">
+                
+                    <div class="gw">
+                    
+                        <div class="g one-whole">
+                            <!-- Score -->
+                            <div data-js="score">
+                                Score: <span data-js="score__display">0</span>
+                            </div>
+                            <!-- /Score -->
+                        </div>
+                        
+                        <div class="g one-whole">
+                            <!-- Best -->
+                            <div data-js="best">
+                                Best: <span data-js="best__display">0</span>
+                            </div>
+                            <!-- /Best -->
+                        </div>
+                        
+                        <div class="g one-whole">
+                            <!-- Deaths -->
+                            <div data-js="deaths">
+                                Deaths: <span data-js="deaths__display">0</span>
+                            </div>
+                            <!-- /Deaths -->
+                        </div>
+                    </div>
+                    
+                </div>
+            
+                <div class="g one-third">
+                
+                    <!-- Audio -->
+                    <div data-js="audio">
+                       <button>
+                           Audio: <span data-js="audio__state">ON</span>
+                       </button>
+                    </div>
+                    <!-- /Audio -->
+                    
+                </div>
+            </div>
+            <!-- /UI -->
         
+            <!-- Canvas -->
+            <div class="g one-whole">
+                <canvas id="board" class="game">You suck</canvas>
+            </div>
+            <!-- /Canvas -->
+            
         </div>
+        <!-- /Main part -->
+        
+        
+        
+
 
         <!-- build:js -->
         <script src="assets/js/audio.js"></script>
+        <script src="assets/js/achievements.js"></script>
         <script src="assets/js/car.js"></script>
         <script src="assets/js/player.js"></script>
         <script src="assets/js/points.js"></script>
         <script src="assets/js/draw.js"></script>
+        <script src="assets/js/UI.js"></script>
         <script src="assets/js/init.js"></script>
         <!-- endbuild -->
     </body>
