@@ -737,9 +737,25 @@
 h1 {
   text-align: center;
   text-transform: uppercase;
-  color: #f33;
+  color: #ff3333;
   margin: 0 0 0 0;
   font-size: 3.5em; }
+
+h2 {
+  margin: .75em 0 .5em 0; }
+
+a {
+  text-decoration: none;
+  color: #ff3333; }
+
+ul li {
+  list-style: none;
+  margin-bottom: .5em; }
+
+button {
+  border: none;
+  background: #ccc;
+  padding: .35em; }
 
 * {
   box-sizing: border-box;
@@ -766,8 +782,23 @@ body {
   transform: translateX(-50%); }
 
 .game {
-  border: 0.5em solid white; }
+  border: 0.5em solid white;
+  margin-bottom: .75em; }
 
 header {
   background: white;
-  padding: .5em 0; }
+  padding: .5em 0;
+  margin: 0 0 1em 0; }
+
+.ui {
+  color: #333333;
+  background: white;
+  padding: .25em 1.25em .25em 0; }
+
+.ui__element {
+  margin: 0 0 .25em 0;
+  padding: .25em 0 .25em 0;
+  border-bottom: 1px solid #333333; }
+
+.ui__value {
+  float: right; }

@@ -17,7 +17,7 @@ function UI (args) {
     
     // The state of the elements
     this.values = {
-        audio : true,
+        audio : (localStorage["audio"] == "false" || localStorage["audio"] == "true" ? JSON.parse(localStorage["audio"]) : true),
         score : 0,
         best : 0,
         deaths : 0
@@ -40,6 +40,20 @@ function UI (args) {
     // Initialize score elements
     this.elements.deaths = document.querySelector('[data-js="deaths"]');
     this.elements.deathsDisplay = document.querySelector('[data-js="deaths__display"]');
+    
+    // Set localStorage
+    if(localStorage["audio"] != "true" || localStorage["audio"] != "false"){
+        localStorage["audio"] = this.values.audio;
+    }
+    
+    // Set audio ON/OFF, whatevs it supposed to be
+    if(this.values.audio){
+        this.elements.audioState.innerHTML = 'ON';
+        window.audio.setEnabled(true);
+    }else{
+        this.elements.audioState.innerHTML = 'OFF';
+        window.audio.setEnabled(false);
+    }
 }
 
 
@@ -68,6 +82,7 @@ UI.prototype = {
         
         // Toggle the state
         this.values.audio = !this.values.audio;
+        localStorage["audio"] = !JSON.parse(localStorage["audio"]);
     },
     
     // Update the score

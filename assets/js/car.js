@@ -16,30 +16,32 @@ window.car = {
         }
     },
     car: function(){
-        var _this = {};
-        
-        _this.lane = (~~(Math.random() * 2) ? "fast" : "slow"), // Which lane the car should be in
-        _this.direction = (~~(Math.random() * 2) ? "up" : "down"); // What direction it's driving
-        
-        _this.length = ~~(Math.random() * (50 - 25) + 25); // How long it is
-        
-        _this.y = (_this.direction == "up" ? 500 : 0 - _this.length); // The start position of the car
-        
-        if(_this.direction == "up"){
-            _this.x = (_this.lane == "fast" ? ~~(Math.random() * ((car.lane.up.fast + 10) - (car.lane.up.fast - 10)) + (car.lane.up.fast - 10)) : ~~(Math.random() * ((car.lane.up.slow + 10) - (car.lane.up.slow - 10)) + (car.lane.up.slow - 10))); // If the car should be in the fast or slow lane on the left side of the road
-        }else{
-            _this.x = (_this.lane == "fast" ? ~~(Math.random() * ((car.lane.down.fast + 10) - (car.lane.down.fast - 10)) + (car.lane.down.fast - 10)) : ~~(Math.random() * ((car.lane.down.slow + 10) - (car.lane.down.slow - 10)) + (car.lane.down.slow - 10))); // If the car should be in the fast or slow lane on the right side of the road
-        }
-        
-        _this.colour = "rgb(" + ~~(Math.random() * 256) + ", " + ~~(Math.random() * 256) + ", " + ~~(Math.random() * 256) + ")"; // The colour of the car
-        
-        if(_this.lane == "fast"){
-            _this.speed = ~~(Math.random() * (car.speed.fast - (car.speed.fast - car.speed.difference)) + (car.speed.fast - car.speed.difference)); // Speed for the car in the fast lane
-        }else{
-            _this.speed = ~~(Math.random() * (car.speed.slow - (car.speed.slow - car.speed.difference)) + (car.speed.slow - car.speed.difference)); // Speed for the car in the slow lane
-        }
+        if(car.cars.length <= window.max.cars){
+            var _this = {};
             
-        car.cars.push(_this) // Push _this to the cars array
+            _this.lane = (~~(Math.random() * 2) ? "fast" : "slow"), // Which lane the car should be in
+            _this.direction = (~~(Math.random() * 2) ? "up" : "down"); // What direction it's driving
+            
+            _this.length = ~~(Math.random() * (50 - 25) + 25); // How long it is
+            
+            _this.y = (_this.direction == "up" ? 500 : 0 - _this.length); // The start position of the car
+            
+            if(_this.direction == "up"){
+                _this.x = (_this.lane == "fast" ? ~~(Math.random() * ((car.lane.up.fast + 10) - (car.lane.up.fast - 10)) + (car.lane.up.fast - 10)) : ~~(Math.random() * ((car.lane.up.slow + 10) - (car.lane.up.slow - 10)) + (car.lane.up.slow - 10))); // If the car should be in the fast or slow lane on the left side of the road
+            }else{
+                _this.x = (_this.lane == "fast" ? ~~(Math.random() * ((car.lane.down.fast + 10) - (car.lane.down.fast - 10)) + (car.lane.down.fast - 10)) : ~~(Math.random() * ((car.lane.down.slow + 10) - (car.lane.down.slow - 10)) + (car.lane.down.slow - 10))); // If the car should be in the fast or slow lane on the right side of the road
+            }
+            
+            _this.colour = "rgb(" + ~~(Math.random() * 256) + ", " + ~~(Math.random() * 256) + ", " + ~~(Math.random() * 256) + ")"; // The colour of the car
+            
+            if(_this.lane == "fast"){
+                _this.speed = ~~(Math.random() * (car.speed.fast - (car.speed.fast - car.speed.difference)) + (car.speed.fast - car.speed.difference)); // Speed for the car in the fast lane
+            }else{
+                _this.speed = ~~(Math.random() * (car.speed.slow - (car.speed.slow - car.speed.difference)) + (car.speed.slow - car.speed.difference)); // Speed for the car in the slow lane
+            }
+                
+            car.cars.push(_this) // Push _this to the cars array
+        }
     },
     // Kill a single car
     kill: function(id) {

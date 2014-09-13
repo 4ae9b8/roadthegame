@@ -10,9 +10,7 @@ Why did the chicken cross the road?
 ## ToDo
 
 * Create the game [Mads|Tim]
-* ~~Gulp to create endresult [Tim]~~
-* ~~Make sounds [Tim]~~
-* Achievements [Mads|Tim]
+* Better achievements [Mads|Tim]
 * Rewrite to use rAF [Mads|Tim]
 
 
@@ -34,10 +32,13 @@ Why did the chicken cross the road?
 * Spawn more power ups the faster the cars get
 * Make the game scalable
 * optimize for mobile -> touch control and bigger board
-* Reset power-up time if you pick it up again (e.g. invincible)
 * Change the volume of the audio
 * Check if audio is available in the current browser and disable it if its not
 * Fade power-ups smoothly in
+* Max amount of power-ups
+* Max amount of speed
+* Don't create car-colors that are too dark (http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color)
+* Steal sound from http://www.cappel-nord.de/webaudio/ (I already asked him if we can use it :D)
 
 
 ### Completed
@@ -60,6 +61,8 @@ Why did the chicken cross the road?
 * ~~Turn audio on / off~~
 * ~~Reset the difficulty after you die (everything to default -> # of cars, speed, power-ups)~~
 * ~~Use localStorage to save game stats (like "best"-score, deaths)~~
+* ~~Gulp to create endresult~~
+* ~~Make sounds~~
 
 
 ### Modes for the future
@@ -79,6 +82,8 @@ Why did the chicken cross the road?
 * ~~If you have x minions and move from one lane to the other you just get 1 score instead of 1 + x~~
 * ~~Minions overlap (after x + 1 minion power-ups you don't see the other minions anymore) -> Maybe only when you have the invincible power up -> nope, it's random~~
 * The trail after the speed power up is not added if you are invincible
+* ~~Power up timer is not reset after taking a new power up~~
+* Can't grap any power-up if you have the invincible power-up picked up once
 
 
 

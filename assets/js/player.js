@@ -1,4 +1,4 @@
-var colours = ["#f1edf2", "#ebceae", "#f3ccb3", "#bf9084", "#3f2d28"];
+var colours = ["#ebceae", "#f3ccb3", "#bf9084", "#3f2d28"];
 window.player = {
     colour: colours[~~(Math.random() * colours.length)],
     x: 10, y: ~~(Math.random() * (490 - 10) + 10),
@@ -60,60 +60,81 @@ window.player = {
         }
     },
     collectPowerUp: function(){
-    	for (var i in window.points.powerUps) {
-            var pU = window.points.powerUps[i];
-            
-            if (
-                (player.y >= pU.y || player.y + 10 >= pU.y) &&
-                (player.y <= pU.y + 5 || player.y + 10 <= pU.y + 5) &&
-                (player.x >= pU.x || player.x + 10 >= pU.x) &&
-                (player.x <= pU.x + 20 || player.x + 10 <= pU.x + 5)
-            ) {
-                if (pU.power == "minion"){
-                    player.currentPowerUps.push({
-                        type: "minion",
-                        position: ~~(Math.random() * 360)
-                    });
-                    
-                    audio.collectPowerUp();
-                    
-                } else if(pU.power == "bomb") {
-                    player.currentPowerUps.push({
-                        type: "bomb",
-                        x: player.x,
-                        y: player.y,
-                        alpha: .5
-                    });
-                    
-                    audio.collectBomb();
-                    
-                } else {
-                    player.currentPowerUps.push(pU.power);
-                    
-                    // Play a sound if a power up was collected
-                    audio.collectPowerUp();
-                }
+        if(player.currentPowerUps.length <= window.max.powers){
+        	for (var i in window.points.powerUps) {
+                var pU = window.points.powerUps[i];
                 
-                var powerId = player.currentPowerUps.length - 1; // Get the current id of the power up
-                points.killPowerUp(i); 
-                
-                if(pU.power == "speed"){
-                    player.speed *= 2;
-                    player.timers.push(setTimeout(function(){
-                        player.speed /= 2;
-                        player.currentPowerUps.splice(powerId, 1);
-                        draw.trails = [];
-                    }, 10000));
-                }else if(pU.power == "invincibility"){
-                    player.invincible = true;
-                    player.timers.push(setTimeout(function(){
-                        player.invincible = false;
-                        player.currentPowerUps.splice(powerId, 1);
-                    }, 10000));
-                }else if(pU.power == "point"){
-                    points.scoreUp(1);
-                }else if(pU.power == "bomb"){
-                    draw.explosion(pU.x, pU.y);
+                if (
+                    (player.y >= pU.y || player.y + 10 >= pU.y) &&
+                    (player.y <= pU.y + 5 || player.y + 10 <= pU.y + 5) &&
+                    (player.x >= pU.x || player.x + 10 >= pU.x) &&
+                    (player.x <= pU.x + 20 || player.x + 10 <= pU.x + 5)
+                ) {
+                    if (pU.power == "minion"){
+                        player.currentPowerUps.push({
+                            type: "minion",
+                            position: ~~(Math.random() * 360)
+                        });
+                        
+                        audio.collectPowerUp();
+                        
+                    } else if(pU.power == "bomb") {
+                        player.currentPowerUps.push({
+                            type: "bomb",
+                            x: player.x,
+                            y: player.y,
+                            alpha: .5
+                        });
+                        
+                        audio.collectBomb();
+                        
+                    } else {
+                        player.currentPowerUps.push(pU.power);
+                        
+                        // Play a sound if a power up was collected
+                        audio.collectPowerUp();
+                    }
+                    
+                    var powerId = player.currentPowerUps.length - 1; // Get the current id of the power up
+                    points.killPowerUp(i); 
+                    
+                    if(pU.power == "speed"){
+                        player.speed *= 2;
+                        
+                        // What are you doing? :D
+                        // Fixing the bug on line 81
+                        // awesome :D I was just looking for it  too :D but please do it
+                        // :D
+                        
+                        for(var i in player.timers){
+                            if(player.timers[i][0] == "speed"){
+                                clearTimeout(player.timers[i][1]);
+                            }
+                        }
+                        
+                        player.timers.push(["speed", setTimeout(function(){
+                            player.speed /= 2;
+                            player.currentPowerUps.splice(powerId, 1);
+                            draw.trails = [];
+                        }, 10000)]);
+                    }else if(pU.power == "invincibility"){
+                        player.invincible = true;
+                        
+                        for(var i in player.timers){
+                            if(player.timers[i][0] == "invincibility"){
+                                clearTimeout(player.timers[i][1]);
+                            }
+                        }
+                        
+                        player.timers.push(["invincibility", setTimeout(function(){
+                            player.invincible = false;
+                            player.currentPowerUps.splice(powerId, 1);
+                        }, 10000)]);
+                    }else if(pU.power == "point"){
+                        points.scoreUp(1);
+                    }else if(pU.power == "bomb"){
+                        draw.explosion(pU.x, pU.y);
+                    }
                 }
             }
         }
@@ -138,7 +159,7 @@ window.player = {
             
             // Clear all timers
             for(var i in player.timers){
-                clearTimeout(player.timers[i]);
+                clearTimeout(player.timers[i][1]);
             }
             
             // Kill all cars

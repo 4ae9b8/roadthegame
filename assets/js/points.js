@@ -26,16 +26,18 @@ window.points = {
         }
     },
     powerUp: function(type){
-        var _this = {},
-            powers = ["speed", "invincibility", "minion", "point", "bomb"];
-        _this.x = ~~(Math.random() * (540 - 10) + 10); // The x position
-        _this.y = ~~(Math.random() * (490 - 10) + 10); // The y position
-        
-        _this.power = (type ? type :powers[~~(Math.random() * powers.length)]); // Which type the power up is
-        
-        _this.dashOffset = 0; // The dash offset of the stroke
-        
-        points.powerUps.push(_this); // Push _this to the powerIps array
+        if(points.powerUps.length <= window.max.powersOnScreen){
+            var _this = {},
+                powers = ["speed", "invincibility", "minion", "point", "bomb"];
+            _this.x = ~~(Math.random() * (540 - 10) + 10); // The x position
+            _this.y = ~~(Math.random() * (490 - 10) + 10); // The y position
+            
+            _this.power = (type ? type :powers[~~(Math.random() * powers.length)]); // Which type the power up is
+            
+            _this.dashOffset = 0; // The dash offset of the stroke
+            
+            points.powerUps.push(_this); // Push _this to the powerIps array
+        }
     },
     hitPowerUp: function(){
         for(var i in window.car.cars){

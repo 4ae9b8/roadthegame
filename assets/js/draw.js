@@ -215,7 +215,7 @@ window.draw = {
     			ctx.fillText("I'm dead...", c.width, c.height - 15);
     			break;
     		case "runOver":
-    			ctx.fillText("Ouch, that hurt", c.width, c.height - 15);
+    			ctx.fillText("Ouch, that hurt.", c.width, c.height - 15);
     			break;
     		case "useBomb":
     			ctx.fillText("Bamb! Yo' dead!", c.width, c.height - 15);

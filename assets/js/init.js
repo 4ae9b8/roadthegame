@@ -1,3 +1,8 @@
+window.max = {
+    powers: 7,
+    powersOnScreen: 21,
+    cars: 14
+};
 var c = document.getElementById("board"),
     ctx = c.getContext("2d"),
     
